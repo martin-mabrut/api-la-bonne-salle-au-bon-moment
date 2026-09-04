@@ -1,13 +1,15 @@
 import { prisma } from "../src/db/prisma.ts";
 
+interface User {
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+    roleId: number;
+}
+
 export const userRepository = {
-    createUser: async (data: {
-        firstname: string;
-        lastname: string;
-        email: string;
-        password: string;
-        roleId: number;
-    }) => {
+    createUser: async (data: User) => {
         return prisma.user.create({ data });
     },
 
@@ -31,7 +33,7 @@ export const userRepository = {
         });
     },
 
-    updateUser: async (id: number, data: Partial<any>) => {
+    updateUser: async (id: number, data: Partial<User>) => {
         return prisma.user.update({
             where: { id },
             data,
