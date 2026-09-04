@@ -1,11 +1,5 @@
 import { prisma } from "../src/db/prisma.ts";
-
-interface Reservation {
-    userId: number;
-    roomId: number;
-    date_debut: string;
-    date_fin: string;
-}
+import type { Reservation } from "../Dto/reservation.dto.ts"
 
 export const reservationRepository = {
     createReservation: async (data: Reservation) => {
