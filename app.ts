@@ -14,7 +14,7 @@ app.get("/",(req,res) => {
     res.send("Hello World!");
 });
 
-app.post("/user",async (req,res) =>{
+/*app.post("/user",async (req,res) =>{
     try {
         const {firstname, lastname, email, password, roleId} = req.body;
 
@@ -33,7 +33,7 @@ app.post("/user",async (req,res) =>{
         const message = error instanceof Error ? error.message : String(error);
         res.status(500).json({ error : message });
     }
-});
+});*/
 
 app.post("/role",async (req,res) => {
     try {

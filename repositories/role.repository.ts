@@ -1,8 +1,5 @@
 import { prisma } from "../src/db/prisma.ts";
-
-interface Role {
-    label: string;
-}
+import type { Role } from "../Dto/role.dto.ts";
 
 export const roleRepository = {
     createRole: async (data: Role) => {

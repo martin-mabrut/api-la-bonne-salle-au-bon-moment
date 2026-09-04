@@ -1,12 +1,5 @@
 import { prisma } from "../src/db/prisma.ts";
-
-interface User {
-    firstname: string;
-    lastname: string;
-    email: string;
-    password: string;
-    roleId: number;
-}
+import type { User } from "../Dto/user.dto.ts"
 
 export const userRepository = {
     createUser: async (data: User) => {

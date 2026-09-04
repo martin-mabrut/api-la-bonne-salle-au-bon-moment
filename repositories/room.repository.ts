@@ -1,9 +1,5 @@
 import { prisma } from "../src/db/prisma.ts";
-
-interface Room {
-    name: string;
-    capacity: number;
-}
+import type { Room } from "../Dto/room.dto.ts"
 
 export const roomRepository = {
     createRoom: async (data: Room) => {
