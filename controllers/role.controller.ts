@@ -3,7 +3,7 @@ import { roleService } from "../services/role.service.ts";
 import type { Role } from "../Dto/role.dto.ts";
 
 export const roleController = {
-    createRoom: async (req: Request, res: Response) => {
+    createRole: async (req: Request, res: Response) => {
         try {
             const data: Role = req.body;
 
