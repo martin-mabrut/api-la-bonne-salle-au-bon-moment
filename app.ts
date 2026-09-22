@@ -34,7 +34,7 @@ app.get("/rerservations/:id", reservationController.findReservationById);
 app.put("/reservations/:id", reservationController.updateReservation);
 app.delete("/reservations/:id", reservationController.deleteReservation);
 
-// Routes Room
+// Routes Roles
 app.post("/roles", roleController.createRole);
 app.get("/roles", roleController.findAllRoles);
 app.get("/roles/:id", roleController.findRoleById);
