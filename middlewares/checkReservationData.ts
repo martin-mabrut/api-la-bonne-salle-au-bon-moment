@@ -1,29 +1,18 @@
 import type { Request, Response, NextFunction } from "express";
-
-function isValidDate(date: Date): boolean {
-    if (isNaN(date.getTime())) {
-        return false;
-    } else {
-        return true;
-    }
-};
+import { reservationSchema } from "../validadors/reservationShema.ts";
 
 export const checkReservationData = (req: Request, res: Response, next: NextFunction) => {
-    const data = req.body;
+    const bodyChecked = reservationSchema.validate(req.body);
+    const error = bodyChecked.error;
+    
 
-
-    if (data.userId && data.roomId && data.date_debut && data.date_fin) {
-        const userId = data.userId;
-        const roomId = data.roomId;
-        const date_debut = new Date(data.date_debut);
-        const date_fin = new Date(data.date_fin);
-
-        if (typeof(userId) === "number" && typeof(roomId) === "number" && isValidDate(date_debut) && isValidDate(date_fin)) {
-            next();
-        } else {
-            res.status(400).json({ error: "Champs invalides" });
-        }
-    } else {
-        res.status(400).json({ error: "Champs manquants" });
+    if (error) {
+    return res.status(400).json({
+    message:
+    "Données invalides"
+    });
     }
+
+    req.body = bodyChecked.value;
+    next();
 };

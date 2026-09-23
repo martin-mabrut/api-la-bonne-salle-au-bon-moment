@@ -6,9 +6,8 @@ export const reservationController = {
     createReservation: async (req: Request, res: Response) => {
         try {
             const data: Reservation = req.body;
-            const reservation = { userId: Number(data.userId), roomId: Number(data.roomId), date_debut: (data.date_debut), date_fin: (data.date_fin)};
 
-            const newReservation = await reservationService.createReservation(reservation);
+            const newReservation = await reservationService.createReservation(data);
             res.status(201).json(newReservation);
         } catch (error) {
             const message = error instanceof Error ? error.message : String(error);
