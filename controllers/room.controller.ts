@@ -6,9 +6,10 @@ export const roomController = {
     createRoom: async (req: Request, res: Response) => {
         try {
             const data: Room = req.body;
+            const room = { name: data.name, capacity: Number(data.capacity)}
 
-            const room = await roomService.createRoom(data);
-            res.status(201).json(room);
+            const newRoom = await roomService.createRoom(room);
+            res.status(201).json(newRoom);
         } catch (error) {
             const message = error instanceof Error ? error.message : String(error);
             res.status(500).json({ error: message });
