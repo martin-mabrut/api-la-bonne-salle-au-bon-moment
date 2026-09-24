@@ -1,6 +1,7 @@
 import express from "express";
 import { reservationController} from "../controllers/reservation.controller.ts";
 import { checkReservationData } from "../middlewares/checkReservationData.ts";
+import { checkReservationUpdateData } from "../middlewares/checkReservationUpdateData.ts";
 
 const reservationRouter = express.Router();
 
@@ -8,7 +9,7 @@ const reservationRouter = express.Router();
 reservationRouter.post("/reservations", checkReservationData, reservationController.createReservation);
 reservationRouter.get("/reservations", reservationController.findAllReservations);
 reservationRouter.get("/rerservations/:id", reservationController.findReservationById);
-reservationRouter.put("/reservations/:id", checkReservationData, reservationController.updateReservation);
+reservationRouter.put("/reservations/:id", checkReservationUpdateData, reservationController.updateReservation);
 reservationRouter.delete("/reservations/:id", reservationController.deleteReservation);
 
 export default reservationRouter;

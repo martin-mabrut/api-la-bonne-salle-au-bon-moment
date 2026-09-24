@@ -4,7 +4,11 @@ import type { Reservation } from "../Dto/reservation.dto.ts"
 export const reservationRepository = {
     createReservation: async (data: Reservation) => {
         return prisma.reservation.create({
-            data,
+            data: {
+                ...data,
+                date_debut: data.date_debut.toISOString(),
+                date_fin: data.date_fin.toISOString(),
+            },
             include: { user: true, room: true },
         });
     },
@@ -39,7 +43,11 @@ export const reservationRepository = {
     updateReservation: async (id: number, data: Partial<Reservation>) => {
         return prisma.reservation.update({
             where: { id },
-            data,
+            data: {
+                ...data,
+                date_debut: data.date_debut?.toISOString(),
+                date_fin: data.date_fin?.toISOString(),
+            },
             include: { user: true, room: true },
         });
     },

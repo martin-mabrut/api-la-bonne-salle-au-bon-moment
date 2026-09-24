@@ -5,6 +5,8 @@ import roomRouter from "./routes/room.router.ts";
 import roleRouter from "./routes/role.router.ts";
 import userRouter from "./routes/user.router.ts";
 
+process.env.TZ = "UTC";
+
 const express = Express;
 const app = express();
 const port = 3000;

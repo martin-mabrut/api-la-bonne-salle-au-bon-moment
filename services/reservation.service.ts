@@ -7,11 +7,14 @@ export const reservationService = {
             const roomReservations = await reservationRepository.findReservationsByRoomId(data.roomId);
 
             for (let i = 0; i < roomReservations.length; i++) {
-                if(data.date_debut < roomReservations[i].date_fin && data.date_debut > roomReservations[i].date_debut) {
+                const existingDebut = new Date(roomReservations[i].date_debut);
+                const existingFin = new Date(roomReservations[i].date_fin);
+
+                if(data.date_debut < existingFin && data.date_debut > existingDebut) {
                     throw new Error("Reservation impossible : Conflit avec les horaires d'une autre réservation");
-                } else if (data.date_fin > roomReservations[i].date_debut && data.date_fin < roomReservations[i].date_fin) {
+                } else if (data.date_fin > existingDebut && data.date_fin < existingFin) {
                     throw new Error("Reservation impossible : Conflit avec les horaires d'une autre réservation");
-                } else if (data.date_debut <= roomReservations[i].date_debut && data.date_fin >= roomReservations[i].date_fin) {
+                } else if (data.date_debut <= existingDebut && data.date_fin >= existingFin) {
                     throw new Error("Reservation impossible : Conflit avec les horaires d'une autre réservation");
                 }
             }
@@ -66,37 +69,31 @@ export const reservationService = {
     updateReservation: async (id: number, data: Partial<Reservation>) => {
 
         const reservationToModify = await reservationRepository.findReservationById(id);
-        if (reservationToModify) {
-            if (data.date_debut) {
-                reservationToModify.date_debut = data.date_debut;
-            }
-            if (data.date_fin) {
-                reservationToModify.date_fin = data.date_fin;
-            }
-            if (data.roomId) {
-                reservationToModify.roomId = data.roomId;
-            }
-            if (data.userId) {
-                reservationToModify.userId = data.userId;
-            }
-        } else {
+        if (!reservationToModify) {
             throw new Error("Une erreur est survenue");
         }
 
+        const roomId = data.roomId ?? reservationToModify.roomId;
+        const date_debut = data.date_debut ?? new Date(reservationToModify.date_debut);
+        const date_fin = data.date_fin ?? new Date(reservationToModify.date_fin);
+
         try {
 
-            const roomReservations = await reservationRepository.findReservationsByRoomId(reservationToModify.roomId);
+            const roomReservations = await reservationRepository.findReservationsByRoomId(roomId);
 
             for (let i = 0; i < roomReservations.length; i++) {
                 if (roomReservations[i].id === reservationToModify.id) {
                     continue;
                 }
 
-                if(reservationToModify.date_debut < roomReservations[i].date_fin && reservationToModify.date_debut > roomReservations[i].date_debut) {
+                const existingDebut = new Date(roomReservations[i].date_debut);
+                const existingFin = new Date(roomReservations[i].date_fin);
+
+                if(date_debut < existingFin && date_debut > existingDebut) {
                     throw new Error("Reservation impossible : Conflit avec les horaires d'une autre réservation");
-                } else if (reservationToModify.date_fin > roomReservations[i].date_debut && reservationToModify.date_fin < roomReservations[i].date_fin) {
+                } else if (date_fin > existingDebut && date_fin < existingFin) {
                     throw new Error("Reservation impossible : Conflit avec les horaires d'une autre réservation");
-                } else if (reservationToModify.date_debut <= roomReservations[i].date_debut && reservationToModify.date_fin >= roomReservations[i].date_fin) {
+                } else if (date_debut <= existingDebut && date_fin >= existingFin) {
                     throw new Error("Reservation impossible : Conflit avec les horaires d'une autre réservation");
                 }
             }

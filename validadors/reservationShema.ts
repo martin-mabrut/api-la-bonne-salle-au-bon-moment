@@ -6,3 +6,11 @@ roomId: Joi.number().required(),
 date_debut: Joi.date().required(),
 date_fin: Joi.date().required()
 });
+
+export const reservationUpdateSchema =
+  Joi.object({
+      userId: Joi.number(),
+      roomId: Joi.number(),
+      date_debut: Joi.date(),
+      date_fin: Joi.date()
+  });
