@@ -1,5 +1,6 @@
 import express from "express";
-import { roleController } from "../controllers/role.controller.ts"
+import { roleController } from "../controllers/role.controller.ts";
+import { checkRoleData } from "../middlewares/checkRoleData.ts";
 
 const roleRouter = express.Router();
 
@@ -27,7 +28,7 @@ const roleRouter = express.Router();
  *          500:
  *              description: Création impossible
  */
-roleRouter.post("/roles", roleController.createRole);
+roleRouter.post("/roles", checkRoleData, roleController.createRole);
 
 /**
  * @swagger
@@ -92,7 +93,7 @@ roleRouter.get("/roles/:id", roleController.findRoleById);
  *          500:
  *              description: Modification impossible
  */
-roleRouter.put("/roles/:id", roleController.updateRole);
+roleRouter.put("/roles/:id", checkRoleData, roleController.updateRole);
 
 /**
  * @swagger

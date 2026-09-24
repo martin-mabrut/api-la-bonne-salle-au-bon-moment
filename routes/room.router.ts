@@ -1,6 +1,7 @@
 import express from "express";
 import { roomController } from "../controllers/room.controller.ts";
 import { checkRoomData } from "../middlewares/checkRoomData.ts";
+import { checkRoomUpdateData } from "../middlewares/checkRoomUpdateData.ts";
 
 const roomRouter = express.Router();
 
@@ -97,7 +98,7 @@ roomRouter.get("/rooms/:id", roomController.findRoomById);
  *          500:
  *              description: Modification impossible
  */
-roomRouter.put("/rooms/:id", checkRoomData, roomController.updateRoom);
+roomRouter.put("/rooms/:id", checkRoomUpdateData, roomController.updateRoom);
 
 /**
  * @swagger

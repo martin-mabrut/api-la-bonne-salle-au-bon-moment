@@ -1,6 +1,7 @@
 import express from "express";
 import { userController } from "../controllers/user.controller.ts";
 import { checkUserData } from "../middlewares/checkUserData.ts";
+import { checkUserUpdateData } from "../middlewares/checkUserUpdateData.ts";
 
 const userRouter = express.Router();
 
@@ -111,7 +112,7 @@ userRouter.get("/users/:id", userController.findUserById);
  *          500:
  *              description: Modification impossible
  */
-userRouter.put("/users/:id", checkUserData, userController.updateUser);
+userRouter.put("/users/:id", checkUserUpdateData, userController.updateUser);
 
 /**
  * @swagger
