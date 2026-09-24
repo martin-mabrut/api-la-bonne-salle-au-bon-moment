@@ -98,6 +98,27 @@ roomRouter.get("/rooms/:id", roomController.findRoomById);
  *              description: Modification impossible
  */
 roomRouter.put("/rooms/:id", checkRoomData, roomController.updateRoom);
+
+/**
+ * @swagger
+ * /rooms/{id}:
+ *  delete:
+ *      summary: Supprime une room par son id
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            schema:
+ *              type: integer
+ *            description: L'id de la room à supprimer
+ *      responses:
+ *          204:
+ *              description: Room supprimée avec succès
+ *          404:
+ *              description: Room non trouvé
+ *          500:
+ *              description: Suppression impossible
+ */
 roomRouter.delete("/rooms/:id", roomController.deleteRoom);
 
 export default roomRouter;

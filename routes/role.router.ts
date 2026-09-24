@@ -93,6 +93,27 @@ roleRouter.get("/roles/:id", roleController.findRoleById);
  *              description: Modification impossible
  */
 roleRouter.put("/roles/:id", roleController.updateRole);
+
+/**
+ * @swagger
+ * /roles/{id}:
+ *  delete:
+ *      summary: Supprime un role par son id
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            schema:
+ *              type: integer
+ *            description: L'id du role à supprimer
+ *      responses:
+ *          204:
+ *              description: Role supprimée avec succès
+ *          404:
+ *              description: Role non trouvé
+ *          500:
+ *              description: Suppression impossible
+ */
 roleRouter.delete("/roles/:id", roleController.deleteRole);
 
 export default roleRouter;

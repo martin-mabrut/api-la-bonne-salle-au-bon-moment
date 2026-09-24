@@ -65,7 +65,7 @@ reservationRouter.get("/reservations", reservationController.findAllReservations
  *            description: L'id de la reservation à récupérer
  *      responses:
  *          200:
- *              description: Liste des reservations récupérée avec succès
+ *              description: Reservation récupérée avec succè
  *          404:
  *              description: Reservation non trouvé
  */
@@ -112,6 +112,27 @@ reservationRouter.get("/reservations/:id", reservationController.findReservation
  *              description: Modification impossible
  */
 reservationRouter.put("/reservations/:id", checkReservationUpdateData, reservationController.updateReservation);
+
+/**
+ * @swagger
+ * /reservations/{id}:
+ *  delete:
+ *      summary: Supprime une réservation par son id
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            schema:
+ *              type: integer
+ *            description: L'id de la reservation à supprimer
+ *      responses:
+ *          204:
+ *              description: Reservation supprimée avec succès
+ *          404:
+ *              description: Reservation non trouvé
+ *          500:
+ *              description: Suppression impossible
+ */
 reservationRouter.delete("/reservations/:id", reservationController.deleteReservation);
 
 export default reservationRouter;

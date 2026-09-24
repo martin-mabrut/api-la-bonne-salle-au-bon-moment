@@ -112,6 +112,27 @@ userRouter.get("/users/:id", userController.findUserById);
  *              description: Modification impossible
  */
 userRouter.put("/users/:id", checkUserData, userController.updateUser);
+
+/**
+ * @swagger
+ * /users/{id}:
+ *  delete:
+ *      summary: Supprime un user par son id
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            schema:
+ *              type: integer
+ *            description: L'id du user à supprimer
+ *      responses:
+ *          204:
+ *              description: User supprimée avec succès
+ *          404:
+ *              description: User non trouvé
+ *          500:
+ *              description: Suppression impossible
+ */
 userRouter.delete("/users/:id", userController.deleteUser);
 
 export default userRouter;
