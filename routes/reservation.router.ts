@@ -19,7 +19,27 @@ reservationRouter.post("/reservations", checkReservationData, reservationControl
  */
 
 reservationRouter.get("/reservations", reservationController.findAllReservations);
-reservationRouter.get("/rerservations/:id", reservationController.findReservationById);
+
+/**
+ * @swagger
+ * /reservations/{id}:
+ *  get:
+ *      summary: Récupère une réservation par son id
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            schema:
+ *              type: integer
+ *            description: L'id de la reservation à récupérer
+ *      responses:
+ *          200:
+ *              description: Liste des reservations récupérée avec succès
+ *          404:
+ *              description: Reservation non trouvé
+ */
+
+reservationRouter.get("/reservations/:id", reservationController.findReservationById);
 reservationRouter.put("/reservations/:id", checkReservationUpdateData, reservationController.updateReservation);
 reservationRouter.delete("/reservations/:id", reservationController.deleteReservation);
 
