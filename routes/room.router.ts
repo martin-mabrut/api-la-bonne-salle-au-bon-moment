@@ -6,6 +6,17 @@ const roomRouter = express.Router();
 
 // Routes Room
 roomRouter.post("/rooms", checkRoomData, roomController.createRoom);
+
+/**
+ * @swagger
+ * /rooms:
+ *  get:
+ *      summary: Récupère la liste de toutes les rooms
+ *      responses:
+ *          200:
+ *              description: Liste des rooms récupérée avec succès
+ */
+
 roomRouter.get("/rooms", roomController.findAllRooms);
 roomRouter.get("/rooms/:id", roomController.findRoomById);
 roomRouter.put("/rooms/:id", checkRoomData, roomController.updateRoom);
