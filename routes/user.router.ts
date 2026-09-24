@@ -2,6 +2,7 @@ import express from "express";
 import { userController } from "../controllers/user.controller.ts";
 import { checkUserData } from "../middlewares/checkUserData.ts";
 import { checkUserUpdateData } from "../middlewares/checkUserUpdateData.ts";
+import { checkIfUserExist } from "../middlewares/checkIfUserExist.ts";
 
 const userRouter = express.Router();
 
@@ -70,7 +71,7 @@ userRouter.get("/users", userController.findAllUsers);
  *          404:
  *              description: User non trouvé
  */
-userRouter.get("/users/:id", userController.findUserById);
+userRouter.get("/users/:id", checkIfUserExist, userController.findUserById);
 
 /**
  * @swagger
@@ -112,7 +113,7 @@ userRouter.get("/users/:id", userController.findUserById);
  *          500:
  *              description: Modification impossible
  */
-userRouter.put("/users/:id", checkUserUpdateData, userController.updateUser);
+userRouter.put("/users/:id", checkIfUserExist, checkUserUpdateData, userController.updateUser);
 
 /**
  * @swagger
@@ -134,6 +135,6 @@ userRouter.put("/users/:id", checkUserUpdateData, userController.updateUser);
  *          500:
  *              description: Suppression impossible
  */
-userRouter.delete("/users/:id", userController.deleteUser);
+userRouter.delete("/users/:id", checkIfUserExist, userController.deleteUser);
 
 export default userRouter;
