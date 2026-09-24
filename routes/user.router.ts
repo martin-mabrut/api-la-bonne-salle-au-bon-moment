@@ -38,6 +38,47 @@ userRouter.get("/users", userController.findAllUsers);
  *              description: User non trouvé
  */
 userRouter.get("/users/:id", userController.findUserById);
+
+/**
+ * @swagger
+ * /users/{id}:
+ *  put:
+ *      summary: Modifie un user par son id
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            schema:
+ *              type: integer
+ *            description: L'id du user à modifier
+ *      requestBody:
+ *          required: false
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          lastname: 
+ *                              type: string
+ *                          firstname:
+ *                              type: string
+ *                          email:
+ *                              type: string
+ *                              format: email
+ *                          password:
+ *                              type: string
+ *                          roleId:
+ *                              type: integer
+ *      responses:
+ *          200:
+ *              description: User modifiée avec succès
+ *          400:
+ *              description: Données invalides
+ *          404:
+ *              description: User non trouvé
+ *          500:
+ *              description: Modification impossible
+ */
 userRouter.put("/users/:id", checkUserData, userController.updateUser);
 userRouter.delete("/users/:id", userController.deleteUser);
 

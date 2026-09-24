@@ -38,6 +38,40 @@ roomRouter.get("/rooms", roomController.findAllRooms);
  *              description: Room non trouvé
  */
 roomRouter.get("/rooms/:id", roomController.findRoomById);
+
+/**
+ * @swagger
+ * /rooms/{id}:
+ *  put:
+ *      summary: Modifie une room par son id
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            schema:
+ *              type: integer
+ *            description: L'id de la room à modifier
+ *      requestBody:
+ *          required: false
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          name: 
+ *                              type: string
+ *                          capacity:
+ *                              type: integer
+ *      responses:
+ *          200:
+ *              description: Room modifiée avec succès
+ *          400:
+ *              description: Données invalides
+ *          404:
+ *              description: Room non trouvé
+ *          500:
+ *              description: Modification impossible
+ */
 roomRouter.put("/rooms/:id", checkRoomData, roomController.updateRoom);
 roomRouter.delete("/rooms/:id", roomController.deleteRoom);
 

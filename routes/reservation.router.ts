@@ -40,6 +40,46 @@ reservationRouter.get("/reservations", reservationController.findAllReservations
  */
 
 reservationRouter.get("/reservations/:id", reservationController.findReservationById);
+
+/**
+ * @swagger
+ * /reservations/{id}:
+ *  put:
+ *      summary: Modifie une réservation par son id
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            schema:
+ *              type: integer
+ *            description: L'id de la reservation à modifier
+ *      requestBody:
+ *          required: false
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          userId: 
+ *                              type: integer
+ *                          roomId:
+ *                              type: integer
+ *                          date_debut:
+ *                              type: string
+ *                              format: date-time
+ *                          date_fin:
+ *                              type: string
+ *                              format: date-time
+ *      responses:
+ *          200:
+ *              description: Réservation modifiée avec succès
+ *          400:
+ *              description: Données invalides
+ *          404:
+ *              description: Reservation non trouvé
+ *          500:
+ *              description: Modification impossible
+ */
 reservationRouter.put("/reservations/:id", checkReservationUpdateData, reservationController.updateReservation);
 reservationRouter.delete("/reservations/:id", reservationController.deleteReservation);
 
