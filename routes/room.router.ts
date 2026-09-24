@@ -5,6 +5,31 @@ import { checkRoomData } from "../middlewares/checkRoomData.ts";
 const roomRouter = express.Router();
 
 // Routes Room
+
+/**
+ * @swagger
+ * /rooms:
+ *  post:
+ *      summary: Créé une room
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          name: 
+ *                              type: string
+ *                          capacity:
+ *                              type: integer
+ *      responses:
+ *          201:
+ *              description: Room créé avec succès
+ *          400:
+ *              description: Données invalides
+ *          500:
+ *              description: Création impossible
+ */
 roomRouter.post("/rooms", checkRoomData, roomController.createRoom);
 
 /**

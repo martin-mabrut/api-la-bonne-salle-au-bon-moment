@@ -6,6 +6,37 @@ import { checkReservationUpdateData } from "../middlewares/checkReservationUpdat
 const reservationRouter = express.Router();
 
 // Routes Reservation
+
+/**
+ * @swagger
+ * /reservations:
+ *  post:
+ *      summary: Créer une réservation
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          userId: 
+ *                              type: integer
+ *                          roomId:
+ *                              type: integer
+ *                          date_debut:
+ *                              type: string
+ *                              format: date-time
+ *                          date_fin:
+ *                              type: string
+ *                              format: date-time
+ *      responses:
+ *          201:
+ *              description: Réservation créée avec succès
+ *          400:
+ *              description: Données invalides
+ *          500:
+ *              description: Création impossible
+ */
 reservationRouter.post("/reservations", checkReservationData, reservationController.createReservation);
 
 /**

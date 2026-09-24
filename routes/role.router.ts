@@ -4,6 +4,29 @@ import { roleController } from "../controllers/role.controller.ts"
 const roleRouter = express.Router();
 
 // Routes Roles
+
+/**
+ * @swagger
+ * /roles:
+ *  post:
+ *      summary: Créé un role
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          label: 
+ *                              type: string
+ *      responses:
+ *          201:
+ *              description: Role créé avec succès
+ *          400:
+ *              description: Données invalides
+ *          500:
+ *              description: Création impossible
+ */
 roleRouter.post("/roles", roleController.createRole);
 
 /**

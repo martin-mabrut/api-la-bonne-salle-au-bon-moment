@@ -5,6 +5,38 @@ import { checkUserData } from "../middlewares/checkUserData.ts";
 const userRouter = express.Router();
 
 //Routes User
+
+/**
+ * @swagger
+ * /users:
+ *  post:
+ *      summary: Créé un user
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          lastname: 
+ *                              type: string
+ *                          firstname:
+ *                              type: string
+ *                          email:
+ *                              type: string
+ *                              format: email
+ *                          password:
+ *                              type: string
+ *                          roleId:
+ *                              type: integer
+ *      responses:
+ *          201:
+ *              description: User créé avec succès
+ *          400:
+ *              description: Données invalides
+ *          500:
+ *              description: Création impossible
+ */
 userRouter.post("/users", checkUserData, userController.createUser);
 
 /**
