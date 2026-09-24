@@ -1,6 +1,7 @@
 import express from "express";
 import { roleController } from "../controllers/role.controller.ts";
 import { checkRoleData } from "../middlewares/checkRoleData.ts";
+import { checkIfRoleExist } from "../middlewares/checkIfRoleExist.ts";
 
 const roleRouter = express.Router();
 
@@ -60,7 +61,7 @@ roleRouter.get("/roles", roleController.findAllRoles);
  *          404:
  *              description: Role non trouvé
  */
-roleRouter.get("/roles/:id", roleController.findRoleById);
+roleRouter.get("/roles/:id", checkIfRoleExist, roleController.findRoleById);
 
 /**
  * @swagger
@@ -93,7 +94,7 @@ roleRouter.get("/roles/:id", roleController.findRoleById);
  *          500:
  *              description: Modification impossible
  */
-roleRouter.put("/roles/:id", checkRoleData, roleController.updateRole);
+roleRouter.put("/roles/:id", checkIfRoleExist, checkRoleData, roleController.updateRole);
 
 /**
  * @swagger
@@ -115,6 +116,6 @@ roleRouter.put("/roles/:id", checkRoleData, roleController.updateRole);
  *          500:
  *              description: Suppression impossible
  */
-roleRouter.delete("/roles/:id", roleController.deleteRole);
+roleRouter.delete("/roles/:id", checkIfRoleExist, roleController.deleteRole);
 
 export default roleRouter;

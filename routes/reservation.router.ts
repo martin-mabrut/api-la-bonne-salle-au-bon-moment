@@ -2,6 +2,7 @@ import express from "express";
 import { reservationController} from "../controllers/reservation.controller.ts";
 import { checkReservationData } from "../middlewares/checkReservationData.ts";
 import { checkReservationUpdateData } from "../middlewares/checkReservationUpdateData.ts";
+import { checkIfReservationExist } from "../middlewares/checkIfReservationExist.ts";
 
 const reservationRouter = express.Router();
 
@@ -70,7 +71,7 @@ reservationRouter.get("/reservations", reservationController.findAllReservations
  *              description: Reservation non trouvé
  */
 
-reservationRouter.get("/reservations/:id", reservationController.findReservationById);
+reservationRouter.get("/reservations/:id", checkIfReservationExist, reservationController.findReservationById);
 
 /**
  * @swagger
@@ -111,7 +112,7 @@ reservationRouter.get("/reservations/:id", reservationController.findReservation
  *          500:
  *              description: Modification impossible
  */
-reservationRouter.put("/reservations/:id", checkReservationUpdateData, reservationController.updateReservation);
+reservationRouter.put("/reservations/:id", checkIfReservationExist, checkReservationUpdateData, reservationController.updateReservation);
 
 /**
  * @swagger
@@ -133,6 +134,6 @@ reservationRouter.put("/reservations/:id", checkReservationUpdateData, reservati
  *          500:
  *              description: Suppression impossible
  */
-reservationRouter.delete("/reservations/:id", reservationController.deleteReservation);
+reservationRouter.delete("/reservations/:id", checkIfReservationExist, reservationController.deleteReservation);
 
 export default reservationRouter;

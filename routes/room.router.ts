@@ -2,6 +2,7 @@ import express from "express";
 import { roomController } from "../controllers/room.controller.ts";
 import { checkRoomData } from "../middlewares/checkRoomData.ts";
 import { checkRoomUpdateData } from "../middlewares/checkRoomUpdateData.ts";
+import { checkIfRoomExist } from "../middlewares/checkIfRoomExist.ts";
 
 const roomRouter = express.Router();
 
@@ -63,7 +64,7 @@ roomRouter.get("/rooms", roomController.findAllRooms);
  *          404:
  *              description: Room non trouvé
  */
-roomRouter.get("/rooms/:id", roomController.findRoomById);
+roomRouter.get("/rooms/:id", checkIfRoomExist, roomController.findRoomById);
 
 /**
  * @swagger
@@ -98,7 +99,7 @@ roomRouter.get("/rooms/:id", roomController.findRoomById);
  *          500:
  *              description: Modification impossible
  */
-roomRouter.put("/rooms/:id", checkRoomUpdateData, roomController.updateRoom);
+roomRouter.put("/rooms/:id", checkIfRoomExist, checkRoomUpdateData, roomController.updateRoom);
 
 /**
  * @swagger
@@ -120,6 +121,6 @@ roomRouter.put("/rooms/:id", checkRoomUpdateData, roomController.updateRoom);
  *          500:
  *              description: Suppression impossible
  */
-roomRouter.delete("/rooms/:id", roomController.deleteRoom);
+roomRouter.delete("/rooms/:id", checkIfRoomExist, roomController.deleteRoom);
 
 export default roomRouter;
