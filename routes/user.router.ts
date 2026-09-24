@@ -5,10 +5,134 @@ import { checkUserData } from "../middlewares/checkUserData.ts";
 const userRouter = express.Router();
 
 //Routes User
+
+/**
+ * @swagger
+ * /users:
+ *  post:
+ *      summary: Créé un user
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          lastname: 
+ *                              type: string
+ *                          firstname:
+ *                              type: string
+ *                          email:
+ *                              type: string
+ *                              format: email
+ *                          password:
+ *                              type: string
+ *                          roleId:
+ *                              type: integer
+ *      responses:
+ *          201:
+ *              description: User créé avec succès
+ *          400:
+ *              description: Données invalides
+ *          500:
+ *              description: Création impossible
+ */
 userRouter.post("/users", checkUserData, userController.createUser);
+
+/**
+ * @swagger
+ * /users:
+ *  get:
+ *      summary: Récupère la liste de tous les users
+ *      responses:
+ *          200:
+ *              description: Liste des users récupérée avec succès
+ */
+
 userRouter.get("/users", userController.findAllUsers);
+
+/**
+ * @swagger
+ * /users/{id}:
+ *  get:
+ *      summary: Récupère un user par son id
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            schema:
+ *              type: integer
+ *            description: L'id du user à récupérer
+ *      responses:
+ *          200:
+ *              description: User récupéré avec succès
+ *          404:
+ *              description: User non trouvé
+ */
 userRouter.get("/users/:id", userController.findUserById);
+
+/**
+ * @swagger
+ * /users/{id}:
+ *  put:
+ *      summary: Modifie un user par son id
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            schema:
+ *              type: integer
+ *            description: L'id du user à modifier
+ *      requestBody:
+ *          required: false
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          lastname: 
+ *                              type: string
+ *                          firstname:
+ *                              type: string
+ *                          email:
+ *                              type: string
+ *                              format: email
+ *                          password:
+ *                              type: string
+ *                          roleId:
+ *                              type: integer
+ *      responses:
+ *          200:
+ *              description: User modifiée avec succès
+ *          400:
+ *              description: Données invalides
+ *          404:
+ *              description: User non trouvé
+ *          500:
+ *              description: Modification impossible
+ */
 userRouter.put("/users/:id", checkUserData, userController.updateUser);
+
+/**
+ * @swagger
+ * /users/{id}:
+ *  delete:
+ *      summary: Supprime un user par son id
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            schema:
+ *              type: integer
+ *            description: L'id du user à supprimer
+ *      responses:
+ *          204:
+ *              description: User supprimée avec succès
+ *          404:
+ *              description: User non trouvé
+ *          500:
+ *              description: Suppression impossible
+ */
 userRouter.delete("/users/:id", userController.deleteUser);
 
 export default userRouter;
